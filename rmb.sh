@@ -12,6 +12,16 @@ function rmb {
   git remote prune origin
   remote_branches=$(git branch -r --merged | grep -v '/master$' | grep -v "/$current_branch$")
   local_branches=$(git branch --merged | grep -v 'master$' | grep -v "$current_branch$")
+
+  protected_remote=("origin/stable" "origin/testing")
+  for i in ${protected_remote[@]}; do
+      remote_branches=${remote_branches[@]//$i/}
+  done
+  protected_local=("dev")
+  for i in ${protected_local[@]}; do
+      local_branches=${local_branches[@]//$i/}
+  done
+
   if [ -z "$remote_branches" ] && [ -z "$local_branches" ]; then
     echo "No existing branches have been merged into $current_branch."
   else
