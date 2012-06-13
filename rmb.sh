@@ -6,6 +6,7 @@ function rmb {
   current_branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
   if [ "$current_branch" != "master" ]; then
     echo "WARNING: You are on branch $current_branch, NOT master."
+    exit 1
   fi
     echo "Fetching merged branches..."
   git remote prune origin
