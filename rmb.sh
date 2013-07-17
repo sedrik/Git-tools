@@ -26,9 +26,9 @@ function rmb {
     echo "No existing branches have been merged into $current_branch."
   else
     echo "This will remove the following branches:"
-    if [ -n "$remote_branches" ]; then
-      echo "$remote_branches"
-    fi
+    #if [ -n "$remote_branches" ]; then
+    #  echo "$remote_branches"
+    #fi
     if [ -n "$local_branches" ]; then
       echo "$local_branches"
     fi
@@ -36,7 +36,7 @@ function rmb {
     echo
     if [ "$choice" == "y" ] || [ "$choice" == "Y" ]; then
       # Remove remote branches
-      git push origin `git branch -r --merged | grep -v '/master$' | grep -v "/$current_branch$" | sed 's/origin\//:/g' | tr -d '\n'`
+      #git push origin `git branch -r --merged | grep -v '/master$' | grep -v "/$current_branch$" | sed 's/origin\//:/g' | tr -d '\n'`
       # Remove local branches
       git branch -d `git branch --merged | grep -v 'master$' | grep -v "$current_branch$" | sed 's/origin\///g' | tr -d '\n'`
     else
